@@ -30,7 +30,7 @@ topology_template:
       requirements:
       properties:
         name: onfGlobalONOS
-        onos_ip: 127.0.0.1
+        onos_ip: onos-cord
         onos_port: 8182
         onos_username: onos
         onos_password: rocks
