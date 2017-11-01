@@ -35,7 +35,7 @@ To install the global orchestrator on a physical node, you should follow the ste
 
 At a high level, bootstrap the development machine and download the code.
 
-### Local POD configuration file
+### Global node configuration file
 When it’s time to write your POD configuration, use the [physical-example.yml](https://github.com/opencord/cord/blob/master/podconfig/physical-example.yml) file as a template. Either modify it or make a copy of it in the same directory.
 Fill in the configuration with your own head node data.
 
@@ -174,9 +174,52 @@ To configure ONOS on the global node:
     ```
 
 ## Configure the local sites
-Local sites configuration consists of two parts:
+Local sites configuration consists of four parts:
+* Ethernet Edge (Centec V350) configuration
+* **Optional** Fabric Breakout configuration
 * ONOS_Fabric configuration
 * The ONOS_CORD configuration
+
+### Configure the Ethernet Edge device (Centec v350)
+The steps below assume that
+* The Centec device to an A(Access)-leaf fabric switch
+* ONOS_CORD is running
+
+Follow the steps below to assign an IP address to the Ethernet Edge device and connect it to ONOS_CORD.
+
+#### Set a management IP address on the switch OOB interface
+The switch management interface should be set with a static IP address (DHCP not supported yet), in the same subnet of the POD internal/management network (by default 10.6.0.0/24).
+
+**NOTE**: Please, use high values for the IP last octet, since lower values are usually allocated first by the MAAS DHCP server running on the head node.
+
+To configure the static IP address, do the following:
+* Log into the CLI of the Centec switch (through SSH or console cable)
+* *configure terminal*
+* *management ip address YOUR_MGMT_ADDRESS netmask YOUR_NETMASK*
+* *end*
+* *show management ip address*
+
+### **Optional** Configure the breakout cable on the fabric switch
+If you use a fabric switch with 40G interfaces and a 4X10G breakout cable to go to the Centec Etherned Edge you need to properly configure the interface on which the breakout cable is connected.
+By default, all 32 ports are running in 1x40G mode. The */etc/accton/ofdpa.conf* needs to be modified if we want to break out 1x40G into 4x10G.
+Do the following:
+* ssh into the fabric switch (username and password are usually root/onl)
+* *vi /etc/accton/ofdpa.conf*
+* uncomment this line *port_mode_1=4x10g    # front port 1* for the prot you have the breakout cable connected to
+* save the file and exit from it. 
+* *cd ~*
+* *./killit*
+* *./connect -bg*
+
+For any more reference you can go to this particular step [Fabric configuration guide](https://wiki.opencord.org/display/CORD/Hardware+Switch+Installation+Guide#HardwareSwitchInstallationGuide-C3)
+
+### Set ONOS-CORD as the Openflow controller
+To set ONOS-CORD as the default switch OpenFlow controller and verify the configuration:
+* Log into the CLI of the Centec switch (through SSH or console cable)
+* *configure terminal*
+* *openflow set controller tcp YOUR-LOCAL-SITE-HEAD-IP 6654*
+* *end*
+* *show openflow controller status*
  
 The local site configurations explained below need to happen on the head nodes of all local sites.
 
@@ -346,34 +389,49 @@ To configure ONOS_CORD do the following:
     curl -X POST -H "content-type:application/json" http://YOUR-LOCAL-SITE-HEAD-IP:8182/onos/v1/network/configuration -d @YOUR-JSON-FILE.json --user onos:rocks
     ```
 
-**Warning** The Json above tries to congiure devices and links at the same time. It may happen that ONOS denies your request of link creation, since it does not find devices present (because their creation is still in progress). If this happens, just wait few seconds and try to push again the same configuration, using the *curl* command above.
-
-## Configure the Ethernet Edge device (Centec v350)
-The steps below assume that
-* The Centec device to an A(Access)-leaf fabric switch
-* ONOS_CORD is running
-
-Follow the steps below to assign an IP address to the Ethernet Edge device and connect it to ONOS_CORD.
-
-### Set a management IP address on the switch OOB interface
-The switch management interface should be set with a static IP address (DHCP not supported yet), in the same subnet of the POD internal/management network (by default 10.6.0.0/24).
-
-**NOTE**: Please, use high values for the IP last octet, since lower values are usually allocated first by the MAAS DHCP server running on the head node.
-
-To configure the static IP address, do the following:
-* Log into the CLI of the Centec switch (through SSH or console cable)
-* *configure terminal*
-* *management ip address YOUR_MGMT_ADDRESS netmask YOUR_NETMASK*
-* *end*
-* *show management ip address*
-
-### Set ONOS-CORD as the Openflow controller
-To set ONOS-CORD as the default switch OpenFlow controller and verify the configuration:
-* Log into the CLI of the Centec switch (through SSH or console cable)
-* *configure terminal*
-* *openflow set controller tcp YOUR-LOCAL-SITE-HEAD-IP 6654*
-* *end*
-* *show openflow controller status*
+**Warning** The JSON above tries to configure devices and links at the same time. It may happen that ONOS denies your request of link creation, since it does not find devices present (because their creation is still in progress). If this happens, just wait few seconds and try to push again the same configuration, using the *curl* command above.
 
 # Done!
 After the global node and the local sites are properly configured, the global node should maintain an abstract view of the topology and you should see UNIs distributed on the map of the XoS GUI. You can start requests to setup Ethernet Virtual Circuit (EVC) from XoS.
+
+# Demo: create an E-Line through the UI
+
+* SSH into global node
+* From */opt/credentials/xosadmin@opencord.org* copy the XOS password
+* From a computer, able to reach the global node, open a browser and go to *http://YOUR_GLOBAL_NODE_IP/xos*
+* Use the following username/password to access:
+    * Username: *xosadmin@opencord.org*
+    * Password: YOUR_PASSWORD_COPIED_AT_THE_STEP_BEFORE
+* From the left menu of the XOS UI, choose *VNaaS GUI*
+* You should see CORD symbols on the map (your UNIs / end-points)
+    * Click on one of them
+    * Choose “Create connection”
+* From the right menu
+    * Choose the bandwidth profile you prefer (i.e. “Gold”)
+    * Input a CORD Site name (i.e. test demo)
+    * Input a VLAN id (i.e. 100)
+* Click on another CORD symbol
+* Click “Finish connection”. This will populate the field “Connect point 2 ID” in the right menu
+* Click save changes on the right menu
+
+A line should appear between the two icons, meaning that a request to connect the two end-points has been saved. The line should become green in few seconds. Green lines are good signs of a working environment.
+
+## End-points communication
+You should now be able to let communicate together the two end-points connected to the CPEs. Each of the two end-points need to be configured to send-out packets tagged with the same VLAN Id(s).  
+Assuming you just configured VLAN id 100 in the UI, and that the two end-points will communicate together using the 192.168.1.0/24 subnet, on each head do the following:
+* *apt-get install vlan*
+* *sudo modprobe 8021q*
+* Activate by default at startup the vlan module
+* *sudo  sh -c 'grep -q 8021q /etc/modules || echo 8021q >> /etc/modules'*
+* *vi /etc/network/interfaces* and add an alias, VLAN tagged interface
+    ```
+	auto YOUR_INTERFACE_CONNECTED_TO_INTERNAL_NETWORK.100
+	iface YOUR_INTERFACE_CONNECTED_TO_INTERNAL_NETWORK.100 inet static
+	address 192.168.1.1 (for the first head node, or 2 for the second one)
+	netmask 255.255.255.0
+	```
+* Save
+* Bring up the interface with *sudo ifup YOUR_INTERFACE_CONNECTED_TO_THE_CPE.100*
+
+## Success, Ping!
+If everything works fine, the two hosts should be able to ping one each other.
