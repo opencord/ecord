@@ -30,6 +30,42 @@ POD. While soon will be possible to use more than one fabric switch, it is usele
  
 **NOTE**: The role of the CPE is to get users’ traffic, tag it with a VLAN id, and forward it to the Ethernet Edge switch. Additionally, the CPE sends and receives OAM probes to let CORD monitor the status of the network. For lab trials, a combination of two components has been used to emulate the CPE functionalities: a media converter, used to collect users’ traffic from an Ethernet CAT5/6 interface (where a traditional host, like a laptop, is connected) and send it out from its other SFP interface; a programmable SFP (plugged into the SFP port of the media converter), that a) tags the traffic with a specific VLAN id and forwards it to the Ethernet Edge switch; b) sends and receives OEM probes to let CORD monitor the network. The programmable SFP is currently configured through NETCONF, using the ONOS Flow Rule abstraction translated into NETCONF XML for the drivers, and the ONOS-based CarrierEthernet application to generate the Flow Rules based on requests.
 
+## Local site connectivity diagram
+The main CORD physical POD [installation guide](https://guide.opencord.org/install_physical.html#connectivity-requirements) already provides a basic POD connectivity diagram. These connections are anyway needed to bring up an E-CORD local site. Please, carefully review them before going through this section.
+
+<img src="static/images/connectivity-diagram.png" alt="E-CORD connectivity diagram" style="width: 800px;"/>
+
+### Legend
+* **Red lines**: data plane connections
+* **Light blue lines**: control plane connections
+* **Bold (BOLD!) lines**: 10G/40G fiber network connections, depending on your hardware
+* **Bold lines**: 1G fiber network connections
+* **Thin lines**: 1G copper network connections
+
+The diagram has been populated with letters and numbers that reference specific devices or ports. Letters only reference devices (i.e. A is the CPE). Letters and numbers reference a port. For example, A1 is the "fiber" port on the CPE.
+
+* **A** - the CPE
+* **B** - the the Ethernet Edge Device
+* **B1** - the Ethernet Edge Device port facing the CPE
+* **B2** - the Ethernet Edge Device port facing the fabric switch
+* **C** - the fabric switch
+* **C1** - the fabric switch port facing the Ethernet Edge Device
+* **C2** - the fabric switch port facing the head node (if any)
+* **C3** - the fabric switch port facing the compute node (if any)
+* **C4** - the main fabric switch port connecting the POD to the upstream network (or directly to the fabric switch of the second POD)
+* **C5** - the main fabric switch port connecting the POD to the upstream network (or directly to the fabric switch of the third POD)
+* **E** - the remote fabric switch (of "POD2" in lab trials with 3 PODs)
+* **E1** - the remote fabric switch port of "POD2", facing the fabric switch in POD1
+* **F** - the remote fabric switch (of "POD3" in lab trials with 3 PODs)
+* **F1** - the remote fabric switch port of "POD3", facing the fabric switch in POD1
+
+A letter, plus "N" represents a generic port on a specific device.
+
+### References and informations needed: letters and numbers in the diagram
+Some informations are needed to
+* Properly configure E-CORD, following in the guide.
+* Have a reference when debugging an installation
+
 ## Installing the global node
 To install the global orchestrator on a physical node, you should follow the steps described in the main [physical POD installation](https://guide.opencord.org/install_physical.html).
 
@@ -180,7 +216,7 @@ Local sites configuration consists of four parts:
 * ONOS_Fabric configuration
 * The ONOS_CORD configuration
 
-### Configure the Ethernet Edge device (Centec v350)
+### Configure the Ethernet Edge device - B - (Centec v350)
 The steps below assume that
 * The Centec device to an A(Access)-leaf fabric switch
 * ONOS_CORD is running
@@ -200,8 +236,8 @@ To configure the static IP address, do the following:
 * *show management ip address*
 
 ### **Optional** Configure the breakout cable on the fabric switch
-If you use a fabric switch with 40G interfaces and a 4X10G breakout cable to go to the Centec Etherned Edge you need to properly configure the interface on which the breakout cable is connected.
-By default, all 32 ports are running in 1x40G mode. The */etc/accton/ofdpa.conf* needs to be modified if we want to break out 1x40G into 4x10G.
+If you use a fabric switch with 40G interfaces and a 4 x 10G breakout cable to go to the Centec Etherned Edge you need to properly configure the interface on which the breakout cable is connected.
+By default, all 32 ports are running in 1 x 40G mode. The */etc/accton/ofdpa.conf* needs to be modified if we want to break out 1 x 40G into 4 x 10G.
 Do the following:
 * ssh into the fabric switch (username and password are usually root/onl)
 * *vi /etc/accton/ofdpa.conf*
@@ -258,7 +294,7 @@ To configure ONOS_Fabric do the following:
             "port": "8181",
             "username": "onos",
             "password": "rocks",
-            "deviceId": "of:YOUR-FABRIC-SW-DPID"
+            "deviceId": "of:C-DPID"
           }
         },
         "org.opencord.ce.local.bigswitch" : {
@@ -266,12 +302,12 @@ To configure ONOS_Fabric do the following:
           [
             {
               "mefPortType" : "INNI",
-              "connectPoint" : "of:YOUR-FABRIC-SW-DPID/PORT-ON-FABRIC-CONNECTING-TO-EE",
+              "connectPoint" : "of:C-DPID/C1",
               "interlinkId" : "EE-1-to-fabric"
             },
             {
               "mefPortType" : "ENNI",
-              "connectPoint" : "of:YOUR-FABRIC-SW-TO-UPSTREAM-DPID/PORT (duplicate as many time as needed)",
+              "connectPoint" : "of:C-DPID/C4 (duplicate as many time as needed, depending how many uplink / connections to other PODs you have)",
               "interlinkId" : "fabric-1-to-fabric-2"
             }
           ]
@@ -298,8 +334,8 @@ To configure ONOS_Fabric do the following:
 Under the key “mefPorts” there is the list of physical ports that have to be exposed to the global node. These ports represent MEF ports and can belong to different physical devices, but they will be part of a single abstract “bigswitch” in the topology of the global ONOS (see [E-CORD topology abstraction](https://guide.opencord.org/profiles/ecord/overview.html#e-cord-topology-abstraction)). These ports represent also the boundary between physical topologies controlled by different ONOS controllers.
 
 In the Json above:
-* *of:YOUR-FABRIC-SW-DPID/PORT-ON-FABRIC-CONNECTING-TO-EE* is the DPID and the port of the fabric device where the ethernet edge is connected to. 
-* *of:YOUR-FABRIC-SW-TO-UPSTREAM-DPID/PORT* is the DPID and the port of the fabric device where the transport network is connected to (in the example fabric switches are connected together). 
+* *of:C-DPID/C1* is the DPID and the port of the fabric device where the Ethernet Edge Device is connected to. 
+* *of:C-DPID/C4* is the DPID and the port of the fabric device where the transport network is connected to (in the example fabric switches are connected together). 
 
 This is hinted through the interlinkId.
 
@@ -334,7 +370,7 @@ To configure ONOS_CORD do the following:
        "netconf": {
          "username": "admin",
          "password": "admin",
-         "ip": "YOUR-CPE-IP",
+         "ip": "A-IP",
          "port": "830"
        },
        "basic": {
@@ -346,12 +382,12 @@ To configure ONOS_CORD do the following:
       }
      },
      "links": {
-      "netconf:YOUR-CPE-IP:830/0-of:WHERE-YOUR-CPE-IS-CONNECTED (EE DPID/PORT)" : {
+      "netconf:A-IP:830/0-of:B-DPID/B1" : {
        "basic" : {
         "type" : "DIRECT"
        }
       },
-      "of:WHERE-YOUR-CPE-IS-CONNECTED (EE DPID/PORT)-netconf:YOUR-CPE-IP:830/0" : {
+      "of:B-DPID/B1-netconf:A-IP:830/0" : {
        "basic" : {
         "type" : "DIRECT"
        }
@@ -363,11 +399,11 @@ To configure ONOS_CORD do the following:
         [
          {
           "mefPortType" : "UNI",
-          "connectPoint" : "netconf:YOUR-CPE-IP:830/0"
+          "connectPoint" : "netconf:A-IP:830/0"
          },
          {
           "mefPortType" : "INNI",
-          "connectPoint" : "of:DPID-AND-PORT-OF-EE-CONNECTING-TO-FABRIC",
+          "connectPoint" : "of:B-DPID",
           "interlinkId" : "EE-2-fabric"
          }
         ]
