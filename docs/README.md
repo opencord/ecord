@@ -1,9 +1,38 @@
 # E-CORD Profile
 
-This repository is intended to host the E-CORD documentation, XOS Models definitions and XOS GUI Extensions that are horizontal to the profile and not tied to a single service.
+The E-CORD (Enterprise CORD) profile is `Official` as of 4.1.
 
-It contains an overview of E-CORD and an installation guide that outlines step by step how to deploy an end to end E-CORD solution.
+## Service Manifest 
+E-CORD includes two service manifests: 
 
-It contains models and GUIs for both `ecord-local` and `ecord-global` profiles.
+#### [ecord-global](https://github.com/opencord/platform-install/blob/master/profile_manifest s/ecord-global.yml)
+
+| Service              | Source Code         |
+|-------------|---------------|
+| vNaaS                | https://github.com/opencord/vnaas |
+| ONOS                | https://github.com/opencord/onos-service |
+
+#### [ecord-local](https://github.com/opencord/platform-install/blob/master/profile_manifest s/ecord.yml)
+
+| Service              | Source Code         |
+|--------------|---------------|
+| vEE                     | https://github.com/opencord/vee |
+| vEG                     | https://github.com/opencord/veg |
+| vRouter               | https://github.com/opencord/vrouter |
+| AddressManager | https://github.com/opencord/addressmanager |
+| VTN                    | https://github.com/opencord/vtn |
+| Fabric                 | https://github.com/opencord/fabric |
+| OpenStack          | https://github.com/opencord/openstack |
+| ONOS                 | https://github.com/opencord/onos-service |
+
+## Model Extensions 
+E-CORD does not extend CORD's core models.
+
+## GUI Extensions 
+E-CORD includes two GUI extension:
+
+* [vnaas](https://github.com/opencord/vnaas/tree/master/xos/gui)
+* [veestat](https://github.com/opencord/vEE/tree/master/xos/veestat)
+
 
 
