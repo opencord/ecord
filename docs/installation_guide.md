@@ -30,7 +30,11 @@ The following hardware is required for each POD.
 * 1x CPE, composed by
     * 1x 2-port TP-Link Gigabit SFP Media converter, model MC220L(UN)
     * 1x Microsemi EA1000 programmable SFP
-* 1x fiber cable (or DAC) to connect the CPE to the Ethernet Edge switch
+* 1x Gigabit SFP transceiver, to be plugged into Ethernet Edge
+  switch. Please ensure the wavelength of this SFP matches the
+  Microsemi SFP; in our case this is 1310nm.
+  In our rack we use the following [device](https://www.amazon.com/gp/product/B00U8PN0NQ/ref=oh_aui_detailpage_o04_s00?ie=UTF8&psc=1)
+* 1x single mode fiber cable to connect the CPE to the Ethernet Edge switch
 * 1x 40G to 4x10G  QSFP+ module to connect the Ethernet Edge switch to the access leaf fabric switch (EdgeCore QSFP to 4x SFP+ DAC, model ET6402-10DAC-3M, part M0OEC6402T06Z)
  
 > **NOTE**: The role of the CPE is to receive end-user traffic, tag it with a VLAN id, and forward it to the Ethernet Edge switch. Additionally, the CPE sends and receives OAM probes to let CORD monitor the status of the network. For lab trials, a combination of two components has been used to emulate the CPE functionalities: a media converter, used to collect users’ traffic from an Ethernet CAT5/6 interface (where a traditional host, like a laptop, is connected) and send it out from its other SFP interface; a programmable SFP (plugged into the SFP port of the media converter), that a) tags the traffic with a specific VLAN id and forwards it to the Ethernet Edge switch; b) sends and receives OEM probes to let CORD monitor the network. The programmable SFP is currently configured through NETCONF, using the ONOS Flow Rule abstraction translated into NETCONF XML for the drivers, and the ONOS-based CarrierEthernet application to generate the Flow Rules based on requests.
