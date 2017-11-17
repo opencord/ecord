@@ -1,0 +1,34 @@
+#!/bin/bash
+# -----------------------------------------------------------------------------
+# Resets the E-CORD Global Pod
+# -----------------------------------------------------------------------------
+
+password=`cat /opt/credentials/xosadmin@opencord.org`
+ip=${1:-localhost}
+cord_json=${2:-wrong-path}
+
+docker exec -i ecordglobal_xos_db_1 psql <<-EOF
+
+\connect xos
+
+DELETE FROM vnaas_eline;
+
+EOF
+
+echo Resetting onos_cord
+cd /opt/onos_cord
+
+docker-compose down
+
+sleep 5
+
+docker-compose up -d
+
+sleep 20
+
+echo sending tosca file
+python /opt/cord/build/platform-install/scripts/run_tosca.py 9000 xosadmin@opencord.org ${password} /opt/cord_profile/carrierethernet-global-app.yaml
+
+echo sending json config onos_cord
+
+curl -X POST -H "content-type:application/json"  http://${ip}:8182/onos/v1/network/configuration -d @${cord_json} --user onos:rocks
