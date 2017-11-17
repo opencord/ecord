@@ -1,0 +1,52 @@
+#!/bin/bash
+# -----------------------------------------------------------------------------
+# Resets a E-CORD Local Pod
+# -----------------------------------------------------------------------------
+
+password=`cat /opt/credentials/xosadmin@opencord.org`
+ip=${1:-localhost}
+fabric_json=${2:-wrong-path}
+cord_json=${3:-wrong-path}
+
+echo Resetting onos_fabric
+cd /opt/onos_fabric
+
+docker-compose down
+
+sleep 5
+
+docker-compose up -d
+
+
+echo Resetting onos_cord
+cd /opt/onos_cord
+
+docker-compose down
+
+sleep 5
+
+docker-compose up -d
+
+sleep 20
+
+echo sending tosca file
+python /opt/cord/build/platform-install/scripts/run_tosca.py 9000 xosadmin@opencord.org ${password} /opt/cord_profile/fabric-service.yaml
+python /opt/cord/build/platform-install/scripts/run_tosca.py 9000 xosadmin@opencord.org ${password} /opt/cord_profile/vtn-service.yaml
+
+sleep 2
+
+python /opt/cord/build/platform-install/scripts/run_tosca.py 9000 xosadmin@opencord.org ${password} /opt/cord_profile/carrierethernet-local-app.yaml
+
+sleep 60
+
+echo sending json config onos_fabric
+
+curl -X POST -H "content-type:application/json"  http://${ip}:8181/onos/v1/network/configuration -d @${fabric_json} --user onos:rocks
+
+echo sending json config onos_cord
+
+curl -X POST -H "content-type:application/json"  http://${ip}:8182/onos/v1/network/configuration -d @${cord_json} --user onos:rocks
+
+sleep 45
+
+curl -X POST -H "content-type:application/json"  http://${ip}:8182/onos/v1/network/configuration -d @${cord_json} --user onos:rocks
