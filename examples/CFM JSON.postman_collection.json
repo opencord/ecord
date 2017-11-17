@@ -1,0 +1,1534 @@
+{
+	"info": {
+		"name": "CFM JSON",
+		"_postman_id": "9b3b65ff-5a9b-7411-ba8f-5378608f2f20",
+		"description": "This collection contains JSON files that can be used to setup CFM on your E-CORD POD.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Requests (Setup)",
+			"description": "",
+			"item": [
+				{
+					"name": "Create MD Microsemi on local 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"md\": {\n    \"mdName\": \"Microsemi\",\n    \"mdNameType\": \"CHARACTERSTRING\",\n    \"mdLevel\": \"LEVEL3\",\n    \"mdNumericId\": 1\n   }\n}"
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/cfm/md",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create MD Microsemi on local 2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"md\": {\n    \"mdName\": \"Microsemi\",\n    \"mdNameType\": \"CHARACTERSTRING\",\n    \"mdLevel\": \"LEVEL3\",\n    \"mdNumericId\": 1\n   }\n}"
+						},
+						"url": {
+							"raw": "http://10.90.1.70:8182/onos/cfm/md",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"70"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create MA ma-vlan-1 on local 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ma\": {\n    \"maName\": \"ma-vlan-1\",\n    \"maNameType\": \"CHARACTERSTRING\",\n    \"maNumericId\": 1,\n    \"ccm-interval\": \"INTERVAL_1S\",\n    \"component-list\": [\n      { \"component\": {\n        \"component-id\":\"1\",\n        \"tag-type\": \"VLAN_STAG\",\n        \"vid-list\": [\n          {\"vid\":1}\n        ]\n        }\n      }\n    ],\n    \"rmep-list\": [\n      { \"rmep\":10 },\n      { \"rmep\":20 }\n    ]\n  }\n}"
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/cfm/md/Microsemi/ma",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create MA ma-vlan-1 on local 2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ma\": {\n    \"maName\": \"ma-vlan-1\",\n    \"maNameType\": \"CHARACTERSTRING\",\n    \"maNumericId\": 1,\n    \"ccm-interval\": \"INTERVAL_1S\",\n    \"component-list\": [\n      { \"component\": {\n        \"component-id\":\"1\",\n        \"tag-type\": \"VLAN_STAG\",\n        \"vid-list\": [\n          {\"vid\":1}\n        ]\n        }\n      }\n    ],\n    \"rmep-list\": [\n      { \"rmep\":10 },\n      { \"rmep\":20 }\n    ]\n  }\n}"
+						},
+						"url": {
+							"raw": "http://10.90.1.70:8182/onos/cfm/md/Microsemi/ma",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"70"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create MEP 10 on local 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mep\": {\n    \"mepId\": 10,\n    \"deviceId\": \"netconf:10.6.0.161:830\",\n    \"port\": 0,\n    \"direction\": \"DOWN_MEP\",\n    \"mdName\": \"Microsemi\",\n    \"maName\": \"ma-vlan-1\",\n    \"primary-vid\": 1,\n    \"administrative-state\": true,\n    \"ccm-ltm-priority\": 4,\n    \"cci-enabled\" :true\n  }\n}"
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/cfm/md/Microsemi/ma/ma-vlan-1/mep",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1",
+								"mep"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create MEP 20 on local 2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mep\": {\n    \"mepId\": 20,\n    \"deviceId\": \"netconf:10.6.0.162:830\",\n    \"port\": 0,\n    \"direction\": \"DOWN_MEP\",\n    \"mdName\": \"Microsemi\",\n    \"maName\": \"ma-vlan-1\",\n    \"primary-vid\": 1,\n    \"administrative-state\": true,\n    \"ccm-ltm-priority\": 4,\n    \"cci-enabled\" :true\n  }\n}"
+						},
+						"url": {
+							"raw": "http://10.90.1.70:8182/onos/cfm/md/Microsemi/ma/ma-vlan-1/mep",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"70"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1",
+								"mep"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create DM from 10 to 20",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"dm\": {\n        \"remoteMepId\":20,\n        \"dmCfgType\": \"DMDMM\",\n        \"version\": \"Y17312008\",\n        \"priority\": \"PRIO1\",\n        \"messagePeriodMs\": 100,\n        \"startTime\": {\n          \"immediate\":true\n        },\n        \"stopTime\": {\n          \"none\":true\n        },\n        \"frameSize\": 1500,\n        \"measurementIntervalMins\": 1,\n        \"measurementsEnabled\": [\n            \"INTER_FRAME_DELAY_VARIATION_TWO_WAY_AVERAGE\",\n            \"INTER_FRAME_DELAY_VARIATION_TWO_WAY_MAX\",\n            \"INTER_FRAME_DELAY_VARIATION_TWO_WAY_MIN\",\n            \"INTER_FRAME_DELAY_VARIATION_TWO_WAY_BINS\",\n            \"FRAME_DELAY_TWO_WAY_AVERAGE\",\n            \"FRAME_DELAY_TWO_WAY_MAX\",\n            \"FRAME_DELAY_TWO_WAY_MIN\",\n            \"FRAME_DELAY_TWO_WAY_BINS\"\n        ]\n  }\n}\n"
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/cfm/md/Microsemi/ma/ma-vlan-1/mep/10/dm",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1",
+								"mep",
+								"10",
+								"dm"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create DM from 20 to 10",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"dm\": {\n        \"remoteMepId\":20,\n        \"dmCfgType\": \"DMDMM\",\n        \"version\": \"Y17312008\",\n        \"priority\": \"PRIO1\",\n        \"messagePeriodMs\": 100,\n        \"startTime\": {\n          \"immediate\":true\n        },\n        \"stopTime\": {\n          \"none\":true\n        },\n        \"frameSize\": 1500,\n        \"measurementIntervalMins\": 1,\n        \"measurementsEnabled\": [\n            \"INTER_FRAME_DELAY_VARIATION_TWO_WAY_AVERAGE\",\n            \"INTER_FRAME_DELAY_VARIATION_TWO_WAY_MAX\",\n            \"INTER_FRAME_DELAY_VARIATION_TWO_WAY_MIN\",\n            \"INTER_FRAME_DELAY_VARIATION_TWO_WAY_BINS\",\n            \"FRAME_DELAY_TWO_WAY_AVERAGE\",\n            \"FRAME_DELAY_TWO_WAY_MAX\",\n            \"FRAME_DELAY_TWO_WAY_MIN\",\n            \"FRAME_DELAY_TWO_WAY_BINS\"\n        ]\n  }\n}\n"
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/cfm/md/Microsemi/ma/ma-vlan-1/mep/10/dm",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1",
+								"mep",
+								"10",
+								"dm"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET Requests",
+			"description": "",
+			"item": [
+				{
+					"name": "Get MDs on local 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/cfm/md",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Get MDs on local 2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.70:8182/onos/cfm/md",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"70"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Get MAs on MD Microsemi on local 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/cfm/md/Microsemi/ma/",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								""
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Get MAs on MD Microsemi on local 2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.70:8182/onos/cfm/md/Microsemi/ma/",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"70"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								""
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Get MEPs on MA ma-vlan-1 on local 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/cfm/md/Microsemi/ma/ma-vlan-1/mep",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1",
+								"mep"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Get MEPs on MA ma-vlan-1 on local 2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.70:8182/onos/cfm/md/Microsemi/ma/ma-vlan-1/mep",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"70"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1",
+								"mep"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "GET DMs on MEP 10 on local 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/cfm/md/Microsemi/ma/ma-vlan-1/mep/10/dm",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1",
+								"mep",
+								"10",
+								"dm"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "GET DMs on MEP 20 on local 2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.70:8182/onos/cfm/md/Microsemi/ma/ma-vlan-1/mep/20/dm",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"70"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1",
+								"mep",
+								"20",
+								"dm"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE Requests",
+			"description": "",
+			"item": [
+				{
+					"name": "Delete MD Microsemi on local 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/cfm/md/Microsemi",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete MD Microsemi on local 2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.70:8182/onos/cfm/md/Microsemi",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"70"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete MA ma-vlan-1 on local 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/cfm/md/Microsemi/ma/ma-vlan-1",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete MA ma-vlan-1 on local 2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.70:8182/onos/cfm/md/Microsemi/ma/ma-vlan-1",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"70"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete MEP 10 on local 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/cfm/md/Microsemi/ma/ma-vlan-1/mep/10",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1",
+								"mep",
+								"10"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete MEP 20 on local 2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.70:8182/onos/cfm/md/Microsemi/ma/ma-vlan-1/mep/20",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"70"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1",
+								"mep",
+								"20"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete DM 1 on local 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.50:8182/onos/onos-app-cfm/md/Microsemi/ma/ma-vlan-1/mep/10/dm/1",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"50"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"onos-app-cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1",
+								"mep",
+								"10",
+								"dm",
+								"1"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete DM 2 on local 2 copy",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "onos",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "rocks",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic b25vczpyb2Nrcw=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.90.1.70:8182/onos/onos-app-cfm/md/Microsemi/ma/ma-vlan-1/mep/20/dm/1",
+							"protocol": "http",
+							"host": [
+								"10",
+								"90",
+								"1",
+								"70"
+							],
+							"port": "8182",
+							"path": [
+								"onos",
+								"onos-app-cfm",
+								"md",
+								"Microsemi",
+								"ma",
+								"ma-vlan-1",
+								"mep",
+								"20",
+								"dm",
+								"1"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
