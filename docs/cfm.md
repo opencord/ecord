@@ -2,15 +2,15 @@
 This guide describes how to configure CFM monitoring for an E-Line generated in a local E-CORD POD. 
 This monitoring will then be viewable in the “Delay and Jitter” link in the CORD UI. 
 It assumes that your POD already has a global E-CORD node and at least 2 local E-CORD instances, with each local E-CORD having a CFM capable device (e.g. Microsemi EA1000) connected.  
-It is assumed that these devices are already detected and connected in ONOS as per [https://guide.opencord.org/profiles/ecord/installation_guide.html](the guide).
+It is assumed that these devices are already detected and connected in ONOS as per [the guide](https://guide.opencord.org/profiles/ecord/installation_guide.html]).
 
 The guide acceses an ONOS_CORD instance at onos-cord, which has the ssh port 8102 and the web port 8182. Change the IP adddresses to your own, and if these ports have been forwarded for some reason on your setup, make sure to accommodate as necessary.
 
 This guide describes a minimal CFM setup, with a single MD (maintenance domain) and MA (maintenance association), two MEPs (measurement endpoints), and one DM (delay measurement).
 
-You can also find a [https://www.getpostman.com/](Postman) JSON collection that contains the JSON necessary to setup CFM under `cord/orchestration/profiles/ecord/examples/`.
+You can also find a [Postman](https://www.getpostman.com/) JSON collection that contains the JSON necessary to setup CFM under `cord/orchestration/profiles/ecord/examples/`.
 
-Detailed information on the CFM application itself can be found on the [https://wiki.onosproject.org/display/ONOS/Layer+2+Monitoring+with+CFM+and+Services+OAM](ONOS Wiki).
+Detailed information on the CFM application itself can be found on the [ONOS Wiki](https://wiki.onosproject.org/display/ONOS/Layer+2+Monitoring+with+CFM+and+Services+OAM).
 ## Creating an MD
 Post the following JSON file to `onos-cord:8182/onos/cfm/md/` on your local instances. Make sure you have a header with basic authorization set to username “onos” and password “rocks”.
 
