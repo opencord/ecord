@@ -178,8 +178,7 @@ To configure ONOS on the global node:
           "xos" : {
             "username" : "xosadmin@opencord.org",
             "password" : "YOUR_XOS_PASSWORD (see note below)",
-            "address" : "YOUR_GLOBAL_NODE_IP",
-            "resource" : "/xosapi/v1/vnaas/usernetworkinterfaces/"
+            "endpoint" : "YOUR_GLOBAL_NODE_IP:80/xosapi/v1/vnaas/usernetworkinterfaces"
           }
         },
         "org.opencord.ce.global.channel.http" : {
