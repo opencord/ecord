@@ -13,6 +13,8 @@ docker exec -i ecordglobal_xos_db_1 psql <<-EOF
 
 DELETE FROM vnaas_eline;
 
+DELETE FROM vnaas_usernetworkinterface;
+
 EOF
 
 echo Resetting onos_cord
