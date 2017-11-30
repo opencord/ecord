@@ -5,14 +5,14 @@ The E-CORD (Enterprise CORD) profile is `Official` as of 4.1.
 ## Service Manifest 
 E-CORD includes two service manifests: 
 
-#### [ecord-global](https://github.com/opencord/platform-install/blob/master/profile_manifest s/ecord-global.yml)
+#### [ecord-global](https://github.com/opencord/platform-install/blob/master/profile_manifests/ecord-global.yml)
 
 | Service              | Source Code         |
 |-------------|---------------|
 | vNaaS                | https://github.com/opencord/vnaas |
 | ONOS                | https://github.com/opencord/onos-service |
 
-#### [ecord-local](https://github.com/opencord/platform-install/blob/master/profile_manifest s/ecord.yml)
+#### [ecord-local](https://github.com/opencord/platform-install/blob/master/profile_manifests/ecord.yml)
 
 | Service              | Source Code         |
 |--------------|---------------|
