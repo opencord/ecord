@@ -524,13 +524,17 @@ Assuming you just configured VLAN id 100 in the UI, and that the two end-points 
 If everything works fine, the two hosts should be able to ping one each other.
 
 # Connecting to Internet
-A local E-CORD pod is also capable of connecting an enterprise to the public internet through the same CPE we leverage to setup the ELine. 
-In order to achive this connectivity you need to:
-* Generate Traffic with a different VLAN tag (c-tag) form the ones used in your Eline(s).
-* Install a rule in the MicroSemi EA1000 CPE to take the newly tagged traffic and push on it a different VLAN tag (s-tag) than the one used for ELine(s).
-* Configure the ip of interface of the leaf switch to which the upstream router is connected. The Ip of this interface needs to be on the same subnet as the upstream router.
-* Configure in the ONOS fabric a default route to the upstream router.
-* Configure a crossconnect into the fabric to make sure the traffic gets forwarded thowards the compute node where the vEG instances get spawned.
-* Create a subsciber. A an example of ho to run a test one is [here](https://guide.opencord.org/profiles/ecord/dev_guide.html#run-an-e-cord-test-subscriber). This subscriber creates an instance of the different services needed to connect to the public internet.
+A local E-CORD pod is also capable of connecting an enterprise to the public Internet through the same CPE we leverage to setup the EVC.
 
-At This point you should be able to connect from your laptop to the public internet when connected to your E-CORD local pod.
+In order to achive this connectivity you need to:
+* Generate traffic with a different c-tag form the ones used in your EVCs.
+* Install a rule in the MicroSemi EA1000 CPE to take the newly tagged traffic and push a different s-tag than the one used for EVCs.
+* Configure the IP of the leaf switch interface to which the upstream router is connected. The IP of this interface needs to be on the same subnet as the upstream router.
+* Configure in ONOS fabric a default route to the upstream router.
+* Configure a cross connect into the fabric to ensure the traffic gets forwarded towards the compute node where the vEG instances get spawned.
+* Create a subsciber. A an example of how to run a test one is
+  [here](https://guide.opencord.org/profiles/ecord/dev_guide.html#run-an-e-cord-test-subscriber). This
+  subscriber creates an instance of the different services needed to
+  connect to the public Internet.
+
+At this point you should be able to connect to the public Internet through your E-CORD local pod.
