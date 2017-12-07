@@ -1,5 +1,5 @@
 # Configuring CFM
-This guide describes how to configure CFM monitoring for an E-Line generated in a local E-CORD POD. This monitoring will then be viewable in the “Delay and Jitter” link in the CORD UI. It assumes that your POD already has a global E-CORD node and at least 2 local E-CORD instances, with each local E-CORD having a CFM capable device (e.g. Microsemi EA1000) connected.It is assumed that these devices are already detected and connected in ONOS as per [the E-CORD installation guide](https://guide.opencord.org/profiles/ecord/installation_guide.html]).
+This guide describes how to configure CFM monitoring for an E-Line generated in a local E-CORD POD. This monitoring will then be viewable in the “Delay and Jitter” link in the CORD UI. It assumes that your POD already has a global E-CORD node and at least 2 local E-CORD instances, with each local E-CORD having a CFM capable device (e.g. Microsemi EA1000) connected.It is assumed that these devices are already detected and connected in ONOS as per [the E-CORD installation guide](installation_guide.md).
 
 The guide acceses an ONOS_CORD instance at `onos-cord`, which has the ssh port 8102 and the web port 8182. Change the IP adddresses to your own, and if these ports have been forwarded for some reason on your setup, make sure to accommodate as necessary.
 
