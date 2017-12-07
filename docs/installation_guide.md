@@ -481,7 +481,7 @@ After the global node and the local sites are properly configured, the global no
 
 * SSH into global node
 * From */opt/credentials/xosadmin@opencord.org* copy the XOS password
-* From a computer, able to reach the global node, open a browser and go to *http://YOUR_GLOBAL_NODE_IP/xos*
+* From a computer, able to reach the global node, open a browser and go to *YOUR_GLOBAL_NODE_IP/xos*
 * Use the following username/password to access:
     * Username: `xosadmin@opencord.org`
     * Password: YOUR_PASSWORD_COPIED_AT_THE_STEP_BEFORE
