@@ -57,7 +57,7 @@ Let's continue with all your local pods.
     ```
     cd CORD_ROOT/orchestration/profiles/ecord/examples/
     chmod +x reset-local.sh 
-    ./reset-local.sh YOUR_GLOBAL_NODE_IP YOUR_PATH_TO_ONOS_FABRIC_JSON_CONFIG_FILE YOUR_PATH_TO_THE_ONOS_CORD_JSON_CONFIG_FILE
+    ./reset-local.sh YOUR_LOCAL_NODE_IP YOUR_PATH_TO_ONOS_FABRIC_JSON_CONFIG_FILE YOUR_PATH_TO_THE_ONOS_CORD_JSON_CONFIG_FILE
     ```
     an example of the last one is:
     ```
