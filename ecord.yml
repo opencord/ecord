@@ -76,10 +76,6 @@ xos_services:
 # service graph gui constraints
 xos_gui_service_graph_constraints: '["vee", "veg", "vrouter"]'
 
-# VTN network configuration
-management_network_ip: 172.27.0.1/24
-data_plane_ip: 10.168.0.253/24
-
 # Juju config
 charm_versions:
   ceilometer: "cs:trusty/ceilometer-17"
