@@ -37,12 +37,12 @@ When it’s time to specify the PODCONFIG file, use
 * *ecord-mock.yml* for local sites, instead of the default value (rcord-mock.yml)
 * *ecord-global-single.yml* to mock global nodes, instead of the default value (rcord-mock.yml)
 
-### CORD-in-a-Box (CiaB) development
+### Virtual Pod (CiaB) development
 
-To understand what CiaB is and what it can help you with, look
+To understand what a Virtual Pod is and what it can help you with, look
 [here](/xos/dev/workflow_pod.md).
 
-To build E-CORD CiaB, follow the steps [here](/install_virtual.md).
+To build E-CORD Virtual Pod, follow the steps [here](/install_virtual.md).
 
 When it’s time to specify the PODCONFIG file, use
 
@@ -68,16 +68,39 @@ in the [troubleshooting guide](/troubleshooting.md).
 
 ## Run an E-CORD test subscriber
 
-When using local PODs, you can emulate E-CORD test subscribers, doing the
-following.
+When using local PODs, you can emulate E-CORD test subscribers by running:
 
-1. ssh into the the head node
+```shell
+$ make ecord-test-local-subscriber
 
-2. `cd /opt/cord/build/platform-install`
+PLAY [Create E-CORD local test subscriber config and run test] ************************
 
-3. Deploy a test subscriber:
+TASK [Gathering Facts] ****************************************************************
+ok: [head1]
 
-    ```
-    ansible-playbook -i inventory/head-localhost --extra-vars "@/opt/cord_profile/genconfig/config.yml" ecord-test-subscriber-playbook.yml
-    ```
+TASK [test-ecord-local-subscriber : Create test-ecord-local-subsc**********************
+ok: [head1]
+
+TASK [test-ecord-local-subscriber : Read test-ecord-local-subscri**********************
+ok: [head1]
+
+TASK [test-ecord-local-subscriber : Run TOSCA to add E-CORD test-**********************
+ok: [head1]
+
+TASK [test-ecord-local-subscriber : Wait for vEG VM to come up] ***********************
+FAILED - RETRYING: Wait for vEG VM to come up (10 retries left).
+changed: [head1]
+
+TASK [test-ecord-local-subscriber : Get ID of VM] *************************************
+changed: [head1]
+
+TASK [test-ecord-local-subscriber : Get Management IP of VM] **************************
+changed: [head1]
+
+PLAY RECAP ****************************************************************************
+head1                      : ok=7    changed=3    unreachable=0    failed=0
+```
+
+If this completes successfully (no make error) then you've successfully created
+a test subscriber vEG VM.
 

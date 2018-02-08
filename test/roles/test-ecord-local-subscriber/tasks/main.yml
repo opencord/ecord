@@ -1,0 +1,64 @@
+---
+# Copyright 2017-present Open Networking Foundation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# test-ecord-local-subscriber/tasks/main.yml
+
+- name: Create test-ecord-local-subscriber.yaml TOSCA config
+  template:
+    src: test-ecord-local-subscriber.yaml.j2
+    dest: "{{ head_cord_profile_dir }}/test-ecord-local-subscriber.yaml"
+    owner: "{{ ansible_user_id }}"
+    mode: 0644
+
+- name: Read test-ecord-local-subscriber.yaml
+  slurp:
+    src: "{{ head_cord_profile_dir }}/test-ecord-local-subscriber.yaml"
+  register: test_ecord_local_subscriber_slurp
+
+- name: Run TOSCA to add E-CORD test-subscriber
+  uri:
+    url: "{{ xos_tosca_url }}/run"
+    method: POST
+    headers:
+      xos-username: "{{ xos_admin_user }}"
+      xos-password: "{{ xos_admin_pass }}"
+    body: "{{ test_ecord_local_subscriber_slurp['content'] | b64decode }}"
+    status_code: 200
+  register: result
+  until: result | success
+  retries: 50
+  delay: 5
+
+- name: Wait for vEG VM to come up
+  shell: bash -c "source /opt/cord_profile/admin-openrc.sh; nova list --all-tenants|grep 'veg.*ACTIVE' > /dev/null"
+  register: result
+  until: result | success
+  retries: 10
+  delay: 60
+  tags:
+    - skip_ansible_lint # running a sub job
+
+- name: Get ID of VM
+  shell: bash -c "source /opt/cord_profile/admin-openrc.sh; nova list --all-tenants|grep {{ site_name }}_veg|cut -d '|' -f 2"
+  register: nova_id
+  tags:
+    - skip_ansible_lint # running a sub job
+
+- name: Get Management IP of VM
+  shell: bash -c "source /opt/cord_profile/admin-openrc.sh; nova interface-list {{ nova_id.stdout }}|grep -o -m 1 '172\.27\.[[:digit:]]*\.[[:digit:]]*'"
+  register: mgmt_ip
+  tags:
+    - skip_ansible_lint # running a sub job
+

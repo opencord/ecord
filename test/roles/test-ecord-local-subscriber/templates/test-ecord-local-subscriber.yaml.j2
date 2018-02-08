@@ -1,0 +1,127 @@
+---
+{#
+Copyright 2017-present Open Networking Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+#}
+
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+description: Creates a CORD test subscriber, created by ecord profile
+
+imports:
+   - custom_types/site.yaml
+   - custom_types/slice.yaml
+   - custom_types/user.yaml
+   - custom_types/serviceinstance.yaml
+   - custom_types/serviceinstancelink.yaml
+   - custom_types/vegservice.yaml
+   - custom_types/vegtenant.yaml
+   - custom_types/veeservice.yaml
+   - custom_types/veeserviceinstance.yaml
+
+topology_template:
+  node_templates:
+
+# site, fully created in deployment.yaml
+    {{ site_name }}:
+      type: tosca.nodes.Site
+      properties:
+        name: {{ site_name }}
+        must-exist: true
+
+# veg slice, veg/vee services, fully created in ecord-services.yaml
+    {{ site_name }}_veg:
+      type: tosca.nodes.Slice
+      properties:
+        name: {{ site_name }}_veg
+        must-exist: true
+
+    service#vee:
+      type: tosca.nodes.VEEService
+      properties:
+        name: vee
+        must-exist: true
+
+    service#veg:
+      type: tosca.nodes.VEGService
+      requirements:
+      properties:
+        name: veg
+        must-exist: true
+
+# Test subscriber
+
+    # Let's add a user who can be administrator of the household
+    johndoe@myhouse.com:
+      type: tosca.nodes.User
+      properties:
+        username: johndoe@myhouse.com
+        email: johndoe@myhouse.com
+        password: letmein
+        firstname: john
+        lastname: doe
+      requirements:
+        - site:
+            node: {{ site_name }}
+            relationship: tosca.relationships.BelongsToOne
+
+    # A subscriber
+    my_enterprise:
+      type: tosca.nodes.ServiceInstance
+      properties:
+        name: my_enterprise
+        service_specific_id: "123"
+
+    my_vEG:
+      type: tosca.nodes.VEGTenant
+      properties:
+        name: my_vEG
+        service_specific_id: "123"
+      requirements:
+        - owner:
+            node: service#veg
+            relationship: tosca.relationships.BelongsToOne
+
+    my_vEE:
+      type: tosca.nodes.VEEServiceInstance
+      properties:
+        name: my_vEE
+        service_specific_id: "123"
+        s_tag: 123
+        c_tag: 123
+      requirements:
+        - owner:
+            node: service#vee
+            relationship: tosca.relationships.BelongsToOne
+
+    my_vEG_vEE_link:
+      type: tosca.nodes.ServiceInstanceLink
+      requirements:
+        - provider_service_instance:
+            node: my_vEG
+            relationship: tosca.relationships.BelongsToOne
+        - subscriber_service_instance:
+            node: my_vEE
+            relationship: tosca.relationships.BelongsToOne
+
+    my_vEE_enterprise_link:
+      type: tosca.nodes.ServiceInstanceLink
+      requirements:
+        - provider_service_instance:
+            node: my_vEE
+            relationship: tosca.relationships.BelongsToOne
+        - subscriber_service_instance:
+            node: my_enterprise
+            relationship: tosca.relationships.BelongsToOne
+
