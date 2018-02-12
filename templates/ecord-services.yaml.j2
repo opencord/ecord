@@ -1,3 +1,4 @@
+---
 {#
 Copyright 2017-present Open Networking Foundation
 
@@ -16,7 +17,7 @@ limitations under the License.
 
 tosca_definitions_version: tosca_simple_yaml_1_0
 
-description: Just enough Tosca to get the vEG slice running on the CORD POD, created by platform-install
+description: Just enough Tosca to get the vEG slice running on the CORD POD, created by ecord profile
 
 imports:
   - custom_types/addressmanagerservice.yaml
@@ -55,13 +56,14 @@ topology_template:
     management:
       type: tosca.nodes.Network
       properties:
-        name: management
         must-exist: true
+        name: management
 
-{% if use_management_hosts %}
-    management_hosts:
+{% if use_vtn_net_management_host %}
+    management_host:
       type: tosca.nodes.Network
       properties:
+        name: management_host
         must-exist: true
 {% endif %}
 
@@ -80,13 +82,15 @@ topology_template:
         must-exist: true
 
 # CORD Services
+
+# Using same addresses as the r-cord VSG
     addresses_veg:
       type: tosca.nodes.AddressPool
       properties:
         name: addresses_veg
-        addresses: 10.7.1.0/24
-        gateway_ip: 10.7.1.1
-        gateway_mac: a4:23:05:06:01:01
+        addresses: {{ addresspool_vsg_cidr }}
+        gateway_ip: {{ addresspool_vsg_cidr | ipaddr('1') | ipaddr('address') }}
+        gateway_mac: {{ fabric_gateway_hwaddr }}
       requirements:
         - service:
             node: service#addressmanager
@@ -96,9 +100,9 @@ topology_template:
       type: tosca.nodes.AddressPool
       properties:
         name: addresses_public
-        addresses: 10.8.1.0/24
-        gateway_ip: 10.8.1.1
-        gateway_mac: a4:23:05:06:01:01
+        addresses: {{ addresspool_public_cidr }}
+        gateway_ip: {{ addresspool_public_cidr | ipaddr('1') | ipaddr('address') }}
+        gateway_mac: {{ fabric_gateway_hwaddr }}
       requirements:
         - service:
             node: service#addressmanager
@@ -194,10 +198,10 @@ topology_template:
               node: service#vrouter
               relationship: tosca.relationships.BelongsToOne
 
-    template#veg:
+    veg_template:
       type: tosca.nodes.NetworkTemplate
       properties:
-        name: veg
+        name: veg_template
         visibility: private
         translation: none
         vtn_kind: VSG
@@ -210,7 +214,7 @@ topology_template:
         # ip_version: 4
       requirements:
         - template:
-            node: template#veg
+            node: veg_template
             relationship: tosca.relationships.BelongsToOne
         - owner:
             node: {{ site_name }}_veg
@@ -254,12 +258,12 @@ topology_template:
               node: {{ site_name }}_veg
               relationship: tosca.relationships.BelongsToOne
 
-{% if use_management_hosts %}
-    networkslice#management_hosts_to_{{ site_name }}_veg:
+{% if use_vtn_net_management_host %}
+    networkslice#management_host_to_{{ site_name }}_veg:
         type: tosca.nodes.NetworkSlice
         requirements:
           - network:
-              node: management_hosts
+              node: management_host
               relationship: tosca.relationships.BelongsToOne
           - slice:
             node: {{ site_name }}_veg
