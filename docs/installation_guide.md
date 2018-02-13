@@ -1,7 +1,7 @@
 # Installation Guide
 
 Installing E-CORD is based on the standard CORD [installation
-process](https://guide.opencord.org/install_physical.html). This section
+process](/install_physical.md). This section
 describes the additional steps required.
 
 ## Hardware Requirements (BOM)
@@ -21,9 +21,9 @@ The following suggests specific hardware.
 ### Global Node
 
 * 1x development machine - same model used for a [generic CORD
-  POD](https://guide.opencord.org/install_physical.html#bill-of-materials-bom--hardware-requirements)
+  POD](/install_physical.md#bill-of-materials-bom--hardware-requirements)
 * 1x compute node (server) - same model used for a [generic CORD
-  POD](https://guide.opencord.org/install_physical.html#bill-of-materials-bom--hardware-requirements)
+  POD](/install_physical.md#bill-of-materials-bom--hardware-requirements)
 
 ### Local Site (POD)
 
@@ -65,7 +65,7 @@ The following hardware is required for each POD.
 ## Local Site Connectivity
 
 The main CORD physical POD [installation
-guide](https://guide.opencord.org/install_physical.html#connectivity-requirements)
+guide](/install_physical.md#connectivity-requirements)
 already provides a basic POD connectivity diagram. These connections are also
 needed to bring up an E-CORD local site. Carefully review them before going
 through this section.
@@ -109,7 +109,7 @@ A letter, plus "N" represents a generic port on a specific device.
 ## Installing the Global Node
 
 To install the global node, you should follow the steps described in the main
-[physical POD installation](https://guide.opencord.org/install_physical.html).
+[physical POD installation](/install_physical.md).
 At a high level, bootstrap the development machine and download the code.
 
 ### Global Node Configuration File
@@ -148,7 +148,8 @@ Now your global node is ready to be connected to the local sites.
 ## Installing an E-CORD Local Site
 
 To install each local site you should follow the steps described in the main
-[physical POD installation](https://guide.opencord.org/install_physical.html).
+[physical POD installation](/install_physical.md).
+
 Bootstrap the development machine and download the code.
 
 When it’s time to write your POD configuration, use the
@@ -398,7 +399,7 @@ To configure ONOS_Fabric do the following:
 * Check that the fabric switch is connected to onos typing devices. If no
   devices are there, make sure your fabric switch is connected to ONOS and go
   through the [Fabric configuration
-  guide](https://guide.opencord.org/appendix_basic_config.html#connect-the-fabric-switches-to-onos).
+  guide](/appendix_basic_config.md#connect-the-fabric-switches-to-onos).
 * Logout from ONOS (CTRL+D or exit)
 * Anywhere, either on the head node itself or on any machine able to reach the
   head node, write your ONOS configuration file.
@@ -457,7 +458,8 @@ Under the key `mefPorts` there is the list of physical ports that have to be
 exposed to the global node. These ports represent MEF ports and can belong to
 different physical devices, but they will be part of a single abstract
 “bigswitch” in the topology of the global ONOS (see [E-CORD topology
-abstraction](https://guide.opencord.org/profiles/ecord/overview.html#e-cord-topology-abstraction)).
+abstraction](overview.md#e-cord-topology-abstraction)).
+
 These ports represent also the boundary between physical topologies controlled
 by different ONOS controllers.
 
@@ -666,7 +668,7 @@ In order to achive this connectivity you need to:
 * Configure a cross connect into the fabric to ensure the traffic gets
   forwarded towards the compute node where the vEG instances get spawned.
 * Create a subsciber. A an example of how to run a test one is
-  [here](https://guide.opencord.org/profiles/ecord/dev_guide.html#run-an-e-cord-test-subscriber).
+  [here](dev_guide.md#run-an-e-cord-test-subscriber).
   This subscriber creates an instance of the different services needed to
   connect to the public Internet.
 
