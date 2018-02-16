@@ -24,8 +24,24 @@ vagrant_up_prereqs:
   - ciab-ovs
 
 build_targets:
- - compute1-up
+  - compute1-up
 
+# Virtual-specific config of network interfaces, for virtual install in Vagrant
+#
+# platform-install config variables
+# which network interfaces belong to which bond on nodes
+management_net_interfaces:
+  - eth2
+
+fabric_net_interfaces:
+  - eth3
+
+# Bring up alias interfaces for the vsg and public networks, for forwarding
+# traffic in virtual pod
+use_addresspool_vsg: True
+use_addresspool_public: True
+
+# MaaS config variables
 external_iface: 'eth0'
 fabric_include_names: eth2
 fabric_include_module_types: omit
