@@ -29,6 +29,7 @@ imports:
   - custom_types/nodelabel.yaml
   - custom_types/onosapp.yaml
   - custom_types/onosservice.yaml
+  - custom_types/service.yaml
   - custom_types/servicedependency.yaml
   - custom_types/serviceinstanceattribute.yaml
   - custom_types/serviceinstancelink.yaml
@@ -58,6 +59,12 @@ topology_template:
       properties:
         must-exist: true
         name: management
+
+# service that holds ecord subscribers
+    service#ecord:
+      type: tosca.nodes.Service
+      properties:
+        name: ecord
 
 {% if use_vtn_net_management_host %}
     management_host:

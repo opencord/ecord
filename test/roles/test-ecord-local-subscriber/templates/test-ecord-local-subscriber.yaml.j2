@@ -23,6 +23,7 @@ imports:
    - custom_types/site.yaml
    - custom_types/slice.yaml
    - custom_types/user.yaml
+   - custom_types/service.yaml
    - custom_types/serviceinstance.yaml
    - custom_types/serviceinstancelink.yaml
    - custom_types/vegservice.yaml
@@ -60,6 +61,12 @@ topology_template:
         name: veg
         must-exist: true
 
+    service#ecord:
+      type: tosca.nodes.Service
+      properties:
+        name: ecord
+        must-exist: true
+
 # Test subscriber
 
     # Let's add a user who can be administrator of the household
@@ -82,6 +89,11 @@ topology_template:
       properties:
         name: my_enterprise
         service_specific_id: "123"
+      requirements:
+        - owner:
+            node: service#ecord
+            relationship: tosca.relationships.BelongsToOne
+
 
     my_vEG:
       type: tosca.nodes.VEGTenant
